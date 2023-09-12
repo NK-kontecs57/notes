@@ -1,0 +1,33 @@
+from datetime import time
+
+
+class Time:
+    def __init__(self, hours, minutes):
+        self.hours, self.minutes = self.get_minutes_hours(hours, minutes)
+
+    def get_minutes_hours(self, hours, minutes):
+        if hours >= 24:
+            while True:
+                if hours < 24:
+                    break
+                hours -= 24
+        hours_counter = 0
+        if minutes > 59:
+            while True:
+                if minutes <= 60:
+                    break
+                hours_counter += 1
+                minutes -= 60
+        hours += hours_counter
+        return hours, minutes
+
+    def __str__(self):
+        return time().strftime('%H:%M')
+
+    def __add__(self, other):
+        return Time(self.hours + other.hours, self.minutes + other.minutes)
+
+    def __iadd__(self, other):
+        self.minutes += other.minutes
+        self.hours += other.hours
+        return self
