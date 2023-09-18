@@ -1,16 +1,11 @@
-class RomanNumeral:
-    def __init__(self, number):
-        self._roman = {'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10,
-                       'XL': 40, 'L': 50, 'XC': 90, 'C': 100, 'CD': 400,
-                       'D': 500, 'CM': 900, 'M': 1000}
-        self.number = number
-
-    def to_number(self, roman):
-        new_num = 0
-        for _ in range(len(roman)):
-            if roman[0] == 'I':
-                new_num -= 1
-            else:
-                new_num += self._roman[roman[0]]
-            new_num = new_num[1:]
-        return new_num
+def hash_function(obj):
+    pre_temp_1 = []
+    for i in range(0, len(obj) // 2):
+        pre_temp_1.append(f'ord(obj[{i}]) * ord(obj[-{i + 1}])')
+    str_temp_1 = ' + '.join(pre_temp_1) if len(obj) % 2 == 0 else ' + '.join((pre_temp_1[:-1] + [pre_temp_1[-1].split(' * ')[0]]))
+    temp_1 = eval(str_temp_1)
+    pre_temp_2 = []
+    signs = ''.join(['-+' for i in range(len(obj))])
+    for i, sign in zip(range(0, len(obj) - 1), signs):
+        pre_temp_2.append(f'ord(obj[{i}]) * {i + 1} {sign} ')
+    temp_2 = ''.join(pre_temp_2)[:-3]
